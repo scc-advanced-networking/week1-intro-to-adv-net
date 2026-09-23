@@ -154,11 +154,11 @@ The previous command will execute the program ping on host h1, send 3 ICMP echo 
 mininet > xterm h1 h2
 ```
 
-![Figure 7: 333 mininet xterm sessions in hosts h1 and h2](./.resources/mininet-intro-screenshot.png){width="80%"}
+![Figure 7: Μininet xterm sessions in hosts h1 and h2](./.resources/mininet-intro-screenshot.png){width="80%"}
 
 Each host in the network will have a set of network interfaces and a network configuration, consisting of unique IP and MAC addresses for each interface. A network interface is important for a host to connect to the network. In our example, host `h1` will have a single interface (`h1-eth0`). You can also inspect the interfaces of each host, using the built-in Linux network configuration tools. For example, you can use the iproute2 tool called `ip`. The program allows inspection of the addresses assigned to each interface (`ip addr show`), the IP routes (`ip route show`) and the interfaces (`ip dev show`). By running the commands `h1 ip addr show` and `h2 ip addr show`, you should see that each host has a single interface (eth0) with a unique IP address. You can also run the command `ip addr show`, in the xterm terminal you create in the previous step on each host.
 
-> **TODO**: Using the created topology, answer the questions in the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **TODO**: Using the created topology, answer the questions in the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).
 
 ### Mininet Python Scripting
 
@@ -190,7 +190,7 @@ This command tells Mininet to use the custom topology defined in `topology.py` a
 
 ![Figure 9: Home Network topology - switch focus](.resources/homenet-switch.png){width="80%"}
 
-> **Your task**: Modify the provided topology file to recreate the topology in Figure 9. Your topology file should define all the necessary hosts with the correct names and IP addresses, connected to the switch via separate links. Once you complete your code, run the modified topology using the `makr topo` command above and answer the questions in the second part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **Your task**: Modify the provided topology file to recreate the topology in Figure 9. Your topology file should define all the necessary hosts with the correct names and IP addresses, connected to the switch via separate links. Once you complete your code, run the modified topology using the `makr topo` command above and answer the questions in the second part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).
 
 ## Task 2: Inspecting Traffic with Wireshark and Mininet
 
@@ -222,7 +222,7 @@ To run Wireshark on a host in your Mininet topology, you first must use the `xte
 
 Let's now generate some traffic between the two hosts in your topology. From the Mininet CLI, run the command `homePC ping -c 5 tablet` to send 5 ICMP echo requests from host `homePC` to host `tablet`. You should see the corresponding ICMP packets appearing in Wireshark on the host `homePC`. You can stop the packet capture in Wireshark by clicking on the red square button in the toolbar. The main Wireshark window should now display all captured packets, along with details such as source and destination IP addresses, protocol type, and packet length, when selecting individual packets. The captured packets should contain multiple protocol headers, resulting from network layers (typically Ethernet -> IPv4 -> UDP/TCP).
 
-> **Your task**: By inspecting the captured packets, answer the questions in the third part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **Your task**: By inspecting the captured packets, answer the questions in the third part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).
 
 ## Task 3: Understanding Ethernet and Switching
 
@@ -242,7 +242,7 @@ In order to inspect the MAC table of a Linux bridge, you can use the `bridge` CL
 
 Let's now open a Wireshark instance on host `h2` and start capturing packets on interface `h2-eth0`. Once Wireshark is running, go back to the Mininet CLI and run the command `h1 ping -c 5 h2` to send 5 ICMP echo requests from host `h1` to host `h2`. You should not see the corresponding ICMP packets appearing in Wireshark on host `h3`. This happens because the switch has learned the MAC addresses of both hosts and is forwarding packets only to the correct destination. Run now on the Mininet terminal the command `s1 bridge fdb flush dev "s1"` and repeat the ping command from `h1` to `h2`. This time, you should see **one** ICMP packet appearing in Wireshark on host `h2`, as the switch has flushed its MAC address table and is flooding the packets to all ports. MAC addresses are relearned by the switch as packets are sent between the hosts. In parallel, a timeout value is associated with each entry in the MAC address table, so that if no packets are received from a device for a specific period of time, the entry is removed from the table.
 
-> **Your task**: Using the provided topology, answer the questions in the fourth part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **Your task**: Using the provided topology, answer the questions in the fourth part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).
 
 ## Task 4: Understanding IPv4 and Routing
 
@@ -304,7 +304,7 @@ You can inspect your routing table on each host in your Mininet topology using t
 mininet> homePC ip route show
 ```
 
-> **Your task**: Once you complete your updated Mininet topology, run the modified topology using the `make topo` command above and answer the questions in the fifth part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **Your task**: Once you complete your updated Mininet topology, run the modified topology using the `make topo` command above and answer the questions in the fifth part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).
 
 ## Task 5: Understanding NAT on the Router
 
@@ -320,4 +320,4 @@ mininet> router iptables -t nat -A POSTROUTING -o router-eth1 -j MASQUERADE
 
 This command adds rules to the NAT table in iptables that specify that outgoing packets on interfaces `router-eth1` and `router-eth2` should have their source IP address modified to the IP address of the respective interface (i.e., perform source NAT). The `MASQUERADE` target automatically determines the appropriate source IP address based on the outgoing interface.
 
-> **Your task**: After enabling NAT on the router, test connectivity from the home network hosts to the Internet networks, and answer the questions in the final part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2824281).
+> **Your task**: After enabling NAT on the router, test connectivity from the home network hosts to the Internet networks, and answer the questions in the final part of the [Week1 Unassessed Quiz](https://modules.lancaster.ac.uk/mod/quiz/view.php?id=2975012).

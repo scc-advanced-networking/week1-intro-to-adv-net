@@ -140,7 +140,7 @@ mininet> net
 mininet> dump
 ```
 
-The `nodes` command lists all the nodes (hosts and switches) in the topology. The `net` command shows the connections between nodes, and the `dump` command provides detailed information about each node, including its IP and MAC addresses.
+The `nodes` command lists all the nodes (hosts and switches) in the topology. The `net` command shows the connections between nodes, and the `dump` command provides detailed information about each node, including its IP address.
 
 You can also run commands on individual hosts by prefixing the command with the host name. For example, to test connectivity between the two hosts, you can use the `ping` command:
 
